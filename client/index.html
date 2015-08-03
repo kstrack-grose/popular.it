@@ -10,12 +10,21 @@
 
     <div ng-view>
       <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
+
+      <div id='container' ng-controller="PopularCtrl">
+        <!-- Your html here -->
+        <input type='text' name="handle" ng-model='search' placeholder='your Twitter handle' />
+        <button ng-click="compareUser(handle)">Submit</button>
+        <div class="msg">
+          {{ message }}
+        </div>
+      </div>
+
     </div>
 
-    <script src="lib/angular/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
 <!-- <script src="lib/angular-route/angular-route.js"></script> -->
 
-    <script src="app/pre.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
