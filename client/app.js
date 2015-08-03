@@ -33,6 +33,7 @@ angular.module('popular', [])
     //   });
     console.log(34, "lookUp");
     $scope.message = Users.compareUser($scope.username);
+    $scope.username = '';
     return;
   };
 
