@@ -3,20 +3,23 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var http = require('http');
-var routes = require('./client/routes.js');
 
 var app = express();
 
-//middleware
+/* middleware */
+//serve static angular file
 app.use(express.static(__dirname + '/client'));
+
+//logger
 app.use(morgan('dev'));
+
+//body parser for requests
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
-// app.use('./client', express.static('index'));z
-
+/* start server */
 app.listen(8080);
 
-// just in case
+// in case we'll need it elsewhere
 module.exports = app;

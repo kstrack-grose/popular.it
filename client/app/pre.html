@@ -9,3 +9,11 @@
 
  'get twitter information' button
    on press, call a function in the controller -->
+
+<div id='container' ng-controller="PopularCtrl">
+  <!-- Your html here -->
+  <input type='text' ng-model='search' placeholder='your Twitter handle' />
+  <div class="msg">
+    {{ message }}
+  </div>
+</div>
