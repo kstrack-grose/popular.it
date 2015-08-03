@@ -8,17 +8,13 @@ var routes = require('./client/routes.js');
 var app = express();
 
 //middleware
-
+app.use(express.static(__dirname + '/client'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
-app.use('./client', express.static('index'));
-//route to angular index.html
-// app.get('*', function(req, res) {
-//   res.render()
-// });
+// app.use('./client', express.static('index'));z
 
 app.listen(8080);
 
