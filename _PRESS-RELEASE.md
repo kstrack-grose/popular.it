@@ -16,29 +16,26 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+# How Popular Am I? #
+  > This product is for users of friend- or follow-based social media, and will give consumers an idea of their popularity in context of other users' popularity.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > *How Popular Am I?* will give you an informed insight into your popularity on social media sites. By comparing your friends and followers with other consumers' friends and followers, you recieve context for how many people enjoy your social media presence and can factor that information in to your online presence thereafter.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Any user of social media is familiar with the number of friends of followers they have on any particular site, but it's hard to obtain and understanding of what that number actually *means*. How many followers does the average Twitter user have? And how far is that number from the highest 5% of followers? It's difficult to understand your relative influence on social media sites.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > By obtaining data from any consumer of our product, we're able to compare data in a much more transparent process than any big-name social media company does. Our algorithms determine the bell curve of the amount of friends and followers and can provide our consumers information on their place within that bell curve, thus providing them with context as to their relative importance on the Internet.
 
-## Quote from You ##
-  > A quote from a spokesperson in your company.
+## How Popular Am I? Speaks Up ##
+  > "Processing and showing all of this data is really important," says K Strack-Grose, a senior developer at *How Popular Am I?*. "It's hard to obtain transparency from Facebook or Twitter or LinkedIn, and so what we're doing is really the best way to truly understand how unpopu--I mean, popular you are in comparison with your 'friends'."
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Using our product is quick and simple. Just go to our website, howpopularami.com, and press the buttons that correspond to the social media sites you use. We'll process all of the information on our side, and show you your relative popularity!
 
-## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+## Testimonial ##
+  > "I love *How Popular Am I?*", says Jessie N., a satisfied customer. "Before, I had no context as to how influential I was on Facebook. Now I know with surety that my aunt who posts only pictures of her dog is more influential than I am!"
 
-## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+## Conclusion ##
+  > Think the app sounds great? Use it by going to [our website](http://howpopularami.com/ "How Popular Am I?"), or you can review our open-source algorithms on the [github repo](https://github.com/kstrack-grose/2015-06-mvp).
