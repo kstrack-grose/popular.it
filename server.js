@@ -22,6 +22,36 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
+var avg = 20;
+// GET //
+app.get('/users', function(req, res) {
+  return Users.fetch()
+    .then(function(users) {
+      console.log(users.models);
+      if (req.body.lessThanAverage) {
+        var average = _.reduce(users.models, function(memo, next) {
+          // compiling only if < av
+          if (next.get('power') <= req.body.average) {
+            return [memo[0] + next.get('power'), memo[1]+=1];
+          }
+        }, [0, 0]);
+      } else {
+        var average = _.reduce(users.models, function(memo, next) {
+          console.log('--------->', next);
+          //compile if > av
+          if (next.get('power')) {
+            return [memo[0] + next.get('power'), memo[1]+=1];
+          }
+        }, [0, 0]);
+      }
+      res.send(JSON.stringify(average));
+    })
+    .catch(function(err) {
+      console.log(62, 'error in fetching all users:', err);
+      res.end();
+    });
+});
+
 // POST //
 app.post('/users', function(req, res) {
   /* see if they're in the database. If not, 
@@ -55,32 +85,6 @@ app.post('/users', function(req, res) {
     });
 });
 
-
-// GET //
-app.get('/users', function(req, res) {
-  return Users.fetch()
-    .then(function(users) {
-      if (req.body.lessThanAverage) {
-        var average = _.reduce(users, function(memo, next) {
-          // compiling only if < av
-          if (next.get('power') <= req.body.average) {
-            return [memo[0] + next.get('power'), memo[1]++];
-          }
-        }, [0, 0]);
-      } else {
-        var average = _.reduce(users, function(memo, next) {
-          //compile if > av
-          if (next.get('power') > req.body.average) {
-            return [memo[0] + next.get('power'), memo[1]++];
-          }
-        }, [0, 0]);
-      }
-      res.send(JSON.stringify(average));
-    })
-    .catch(function(err) {
-      console.log(62, 'error in fetching all users:', err);
-    });
-});
 
 
 /* start server */

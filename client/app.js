@@ -24,7 +24,7 @@ angular.module('popular', [])
     var lessThanAverage = power <= average;
     $http({
       method: 'GET',
-      url: '/users,',
+      url: '/users',
       data: {average: average,
              lessThanAverage: lessThanAverage}
     }).then(function(tuple) {
