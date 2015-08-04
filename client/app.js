@@ -5,7 +5,8 @@ angular.module('popular', [])
   var compareUser = function(username) {
     return $http({
       method: 'POST',
-      url: '/users'
+      url: '/users',
+      data: {username: username}
     }).then(function(friends) {
       return compareData(friends);
     }).catch(function(err) {

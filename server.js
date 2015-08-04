@@ -25,27 +25,28 @@ app.post('/users', function(req, res) {
   redirect to addUser factory fn and add
   them. After that/if they are in the db */
 
-  new User({twitterHandle: username}).fetch()
+  new User({twitterHandle: req.body.username}).fetch()
     .then(function(found) {
       if (found) {
         return found.power;
       } else {
         var user = new User({
-          twitterHandle: username,
+          twitterHandle: req.body.username,
           //hardcoded for now
           power: 20
         });
         user.save()
         .then(function(newUser) {
-          return found.power;
+          console.log(40, newUser);
+          return newUser.get('power');
         })
         .catch(function(err) {
-          console.log(43, 'error in saving new user');
+          console.log(43, 'error in saving new user: ', err);
         });
       }
     })
     .catch(function(err) {
-      console.log(48, 'error in looking up user');
+      console.log(48, 'error in looking up user: ', err);
     });
 })
 
