@@ -1,7 +1,26 @@
-h1 {
-  color: blue;
+body {
+  background-color: #71B5CC;
+  font-family: "Helvetica", "Georgia", "sans-serif";
+  text-align: center;
 }
 
-.msg {
-  background-color: #999;
+#container {
+  background-color: #A9FFE5;
+  width: 70%;
+  margin: 20px auto;
+  min-height: 400px;
+}
+
+div .button {
+  margin: 20px;
+  height: 40px;
+}
+
+div .submit {
+  height: 40px;
+}
+
+div .msg {
+  height: 30px;
+  padding-top: 20px;
 }

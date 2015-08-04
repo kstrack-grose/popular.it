@@ -45,8 +45,7 @@ angular.module('popular', [])
 
 .controller('PopularCtrl', function ($scope, $location, Users) {
   $scope.username = '';
-  //hardcoded for now;
-  $scope.message = '';
+  $scope.message = ' ';
 
   // look up their data in comparison to others'
   $scope.lookUp = function() {
