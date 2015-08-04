@@ -2,23 +2,42 @@ angular.module('popular', [])
 
 .factory('Users', function($http) {
 
+  var average = 20;
+
+  var replies = ['you are unpopular'];
+
   var compareUser = function(username) {
     return $http({
       method: 'POST',
       url: '/users',
       data: {username: username}
     }).then(function(friends) {
-      console.log(11, friends);
+      console.log(11, friends.data);
+      compareData(friends.data);
       return friends
-      // return compareData(friends.data);
     }).catch(function(err) {
       console.log(14, 'error using $http', err);
-    })
-    console.log(25, 'compareUser');
+    });
   };
 
   var compareData = function(power) {
-    return "you are this powerful: " + power;
+    var lessThanAverage = power <= average;
+    $http({
+      method: 'GET',
+      url: '/users,',
+      data: {average: average,
+             lessThanAverage: lessThanAverage}
+    }).then(function(tuple) {
+      // compare power with average
+      console.log('returned from GET with power', power, 'and database average', tuple);
+        //reduce the allUsers array accordingly
+        //take the result of that reduce, find a mean
+        //compare that mean and compare with power
+        //return the appropriate reply from replies obj/arr
+    })
+    .catch(function(err) {
+      console.log(37, 'error in $http', err);
+    });
   };
 
   return {
@@ -53,5 +72,4 @@ angular.module('popular', [])
         console.log(53, err);
       });
   };
-
 });

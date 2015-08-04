@@ -6,6 +6,7 @@ var http = require('http');
 var db = require('./app/config');
 var Users = require('./app/users');
 var User = require('./app/user');
+var _ = require('underscore');
 
 var app = express();
 
@@ -20,11 +21,12 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+
+// POST //
 app.post('/users', function(req, res) {
   /* see if they're in the database. If not, 
   redirect to addUser factory fn and add
   them. After that/if they are in the db */
-
   return new User({twitterHandle: req.body.username}).fetch()
     .then(function(found) {
       if (found) {
@@ -42,16 +44,43 @@ app.post('/users', function(req, res) {
           res.send(JSON.stringify(newUser.get('power')));
         })
         .catch(function(err) {
-          console.log(43, 'error in saving new user: ', err);
+          console.log(455, 'error in saving new user:', err);
           res.end();
         });
       }
     })
     .catch(function(err) {
-      console.log(48, 'error in looking up user: ', err);
+      console.log(51, 'error in looking up user:', err);
       res.end();
     });
-})
+});
+
+
+// GET //
+app.get('/users', function(req, res) {
+  return Users.fetch()
+    .then(function(users) {
+      if (req.body.lessThanAverage) {
+        var average = _.reduce(users, function(memo, next) {
+          // compiling only if < av
+          if (next.get('power') <= req.body.average) {
+            return [memo[0] + next.get('power'), memo[1]++];
+          }
+        }, [0, 0]);
+      } else {
+        var average = _.reduce(users, function(memo, next) {
+          //compile if > av
+          if (next.get('power') > req.body.average) {
+            return [memo[0] + next.get('power'), memo[1]++];
+          }
+        }, [0, 0]);
+      }
+      res.send(JSON.stringify(average));
+    })
+    .catch(function(err) {
+      console.log(62, 'error in fetching all users:', err);
+    });
+});
 
 
 /* start server */
