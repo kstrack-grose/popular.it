@@ -12,7 +12,7 @@ angular.module('popular', [])
       url: '/users',
       data: {username: username}
     }).then(function(friends) {
-      console.log(11, friends.data);
+      console.log(14, friends.data);
       return compareData(friends.data);
     }).catch(function(err) {
       console.log(14, 'error using $http', err);
@@ -31,8 +31,10 @@ angular.module('popular', [])
         return "eh, you're almost average. passable, I guess.";
       } else if (power > averages.mid && power < averages.high) {
         return "you're a bit above average. this means you're probably a decent human being. probably.";
-      } else {
+      } else if (power > averages.high) {
         return "OH EM GEE you are SOOOOO popular LIEK WOAAH";
+      } else {
+        return "kiri you fucked up somewhere";
       };
     })
     .catch(function(err) {

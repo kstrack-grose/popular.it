@@ -49,7 +49,7 @@ app.get('/users', function(req, res) {
       average = {'mid': average};
       //insert low and high mid ranges with some math
       average.low = mids.low[0]/mids.low[1];
-      average.high = mids.high[0]/mid.high[1];
+      average.high = mids.high[0]/mids.high[1];
       //send it off!
       res.send(JSON.stringify(average));
     })
