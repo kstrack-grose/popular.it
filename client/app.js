@@ -9,11 +9,10 @@ angular.module('popular', [])
       data: {username: username}
     }).then(function(friends) {
       console.log(11, friends);
-      return compareData(friends);
+      return compareData(friends.data);
     }).catch(function(err) {
-      console.log(12, 'error using $http');
+      console.log(14, 'error using $http', err);
     })
-
     console.log(25, 'compareUser');
   };
 

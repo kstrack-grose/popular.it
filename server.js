@@ -28,8 +28,8 @@ app.post('/users', function(req, res) {
   return new User({twitterHandle: req.body.username}).fetch()
     .then(function(found) {
       if (found) {
-        console.log('found power:', found.get('power'))
-        return found.get('power');
+        console.log('found power:', found.get('power'));
+        res.send(JSON.stringify(found.get('power')));
       } else {
         var user = new User({
           twitterHandle: req.body.username,
@@ -39,15 +39,17 @@ app.post('/users', function(req, res) {
         user.save()
         .then(function(newUser) {
           console.log('new user power: ', newUser.get('power'));
-          return newUser.get('power');
+          res.send(JSON.stringify(newUser.get('power')));
         })
         .catch(function(err) {
           console.log(43, 'error in saving new user: ', err);
+          res.end();
         });
       }
     })
     .catch(function(err) {
       console.log(48, 'error in looking up user: ', err);
+      res.end();
     });
 })
 
