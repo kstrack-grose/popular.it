@@ -8,6 +8,7 @@ angular.module('popular', [])
       url: '/users',
       data: {username: username}
     }).then(function(friends) {
+      console.log(11, friends);
       return compareData(friends);
     }).catch(function(err) {
       console.log(12, 'error using $http');
