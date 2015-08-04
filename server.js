@@ -3,6 +3,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var http = require('http');
+var db = require('./app/config');
+var Users = require('./app/users');
+var User = require('./app/user');
 
 var app = express();
 
@@ -16,6 +19,35 @@ app.use(morgan('dev'));
 //body parser for requests
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.post('/users', function(req, res) {
+  /* see if they're in the database. If not, 
+  redirect to addUser factory fn and add
+  them. After that/if they are in the db */
+
+  new User({twitterHandle: username}).fetch()
+    .then(function(found) {
+      if (found) {
+        return found.power;
+      } else {
+        var user = new User({
+          twitterHandle: username,
+          //hardcoded for now
+          power: 20
+        });
+        user.save()
+        .then(function(newUser) {
+          return found.power;
+        })
+        .catch(function(err) {
+          console.log(43, 'error in saving new user');
+        });
+      }
+    })
+    .catch(function(err) {
+      console.log(48, 'error in looking up user');
+    });
+})
 
 
 /* start server */

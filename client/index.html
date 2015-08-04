@@ -8,20 +8,16 @@
   <body>
     <h1>How Popular Am I?</h1>
 
-    <div ng-view>
-      <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
-      <div id='container' ng-controller="PopularCtrl">
-        <input ng-model="username">
-        <button ng-click="lookUp()">submit</button>
-        <div class="msg">
-          {{ message }}
-        </div>
+    <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
+    <div id='container' ng-controller="PopularCtrl">
+      <input ng-model="username">
+      <button ng-click="lookUp()">submit</button>
+      <div class="msg">
+        {{ message }}
       </div>
-      
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-<!-- <script src="lib/angular-route/angular-route.js"></script> -->
 
     <script src="app.js"></script>
   </body>

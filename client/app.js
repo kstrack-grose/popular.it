@@ -3,18 +3,28 @@ angular.module('popular', [])
 .factory('Users', function($http) {
 
   var compareUser = function(username) {
-    /* see if they're in the database. If not, 
-    redirect to addUser factory fn and add
-    them. After that/if they are in the db */
-    console.log(9, 'compareUser');
-    //also, will be promises. for now:
-    return 'This is a message';
-  }
+    return $http({
+      method: 'POST',
+      url: '/users'
+    }).then(function(friends) {
+      return compareData(friends);
+    }).catch(function(err) {
+      console.log(12, 'error using $http');
+    })
+
+    console.log(25, 'compareUser');
+  };
+
+  var compareData = function(power) {
+    return "you are this powerful: " + power;
+  };
 
   return {
-    compareUser: compareUser
+    compareUser: compareUser,
+    compareData: compareData
   }
 })
+
 .controller('PopularCtrl', function ($scope, $location, Users) {
   $scope.username = '';
   //hardcoded for now;
