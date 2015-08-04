@@ -27,23 +27,12 @@ var avg = 20;
 app.get('/users', function(req, res) {
   return Users.fetch()
     .then(function(users) {
-      console.log(users.models);
-      if (req.body.lessThanAverage) {
-        var average = _.reduce(users.models, function(memo, next) {
-          // compiling only if < av
-          if (next.get('power') <= req.body.average) {
-            return [memo[0] + next.get('power'), memo[1]+=1];
-          }
-        }, [0, 0]);
-      } else {
-        var average = _.reduce(users.models, function(memo, next) {
-          console.log('--------->', next);
-          //compile if > av
-          if (next.get('power')) {
-            return [memo[0] + next.get('power'), memo[1]+=1];
-          }
-        }, [0, 0]);
-      }
+      var average = _.reduce(users.models, function(memo, next) {
+        // create a tuple of [total power, num of users];
+        if (next.get('power')) {
+          return [memo[0] + next.get('power'), memo[1]+=1];
+        }
+      }, [0, 0]);
       res.send(JSON.stringify(average));
     })
     .catch(function(err) {

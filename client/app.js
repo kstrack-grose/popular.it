@@ -13,27 +13,24 @@ angular.module('popular', [])
       data: {username: username}
     }).then(function(friends) {
       console.log(11, friends.data);
-      compareData(friends.data);
-      return friends
+      return compareData(friends.data);
     }).catch(function(err) {
       console.log(14, 'error using $http', err);
     });
   };
 
   var compareData = function(power) {
-    var lessThanAverage = power <= average;
-    $http({
+    return $http({
       method: 'GET',
-      url: '/users',
-      data: {average: average,
-             lessThanAverage: lessThanAverage}
-    }).then(function(tuple) {
-      // compare power with average
-      console.log('returned from GET with power', power, 'and database average', tuple);
-        //reduce the allUsers array accordingly
-        //take the result of that reduce, find a mean
-        //compare that mean and compare with power
-        //return the appropriate reply from replies obj/arr
+      url: '/users'
+    }).then(function(results) {
+      var tuple = results.data;
+      var dbAvg = tuple[0]/tuple[1];
+      if (power <= dbAvg) {
+        return 'Eh...you\'re almost average.';
+      } else {
+        return "Wow, you're above average. So. Popular.";
+      }
     })
     .catch(function(err) {
       console.log(37, 'error in $http', err);
@@ -53,18 +50,9 @@ angular.module('popular', [])
 
   // look up their data in comparison to others'
   $scope.lookUp = function() {
-    // go to Users factory and get the promise from there
-    // Users.compareUser($scope.username)
-    //   .then(function(result) {
-    //     // for now, just add to the message
-    //     $scope.message = result;
-    //   })
-    //   .catch(function(err) {
-    //     $scope.message = err;
-    //   });
     Users.compareUser($scope.username)
       .then(function(result) {
-        $scope.message = result.data;
+        $scope.message = result;
         $scope.username = '';
         return;        
       })
