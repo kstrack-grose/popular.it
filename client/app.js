@@ -9,7 +9,8 @@ angular.module('popular', [])
       data: {username: username}
     }).then(function(friends) {
       console.log(11, friends);
-      return compareData(friends.data);
+      return friends
+      // return compareData(friends.data);
     }).catch(function(err) {
       console.log(14, 'error using $http', err);
     })
@@ -42,10 +43,15 @@ angular.module('popular', [])
     //   .catch(function(err) {
     //     $scope.message = err;
     //   });
-    console.log(34, "lookUp");
-    $scope.message = Users.compareUser($scope.username);
-    $scope.username = '';
-    return;
+    Users.compareUser($scope.username)
+      .then(function(result) {
+        $scope.message = result.data;
+        $scope.username = '';
+        return;        
+      })
+      .catch(function(err) {
+        console.log(53, err);
+      });
   };
 
 });
