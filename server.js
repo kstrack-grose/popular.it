@@ -27,12 +27,30 @@ var avg = 20;
 app.get('/users', function(req, res) {
   return Users.fetch()
     .then(function(users) {
+      // find absolute average
       var average = _.reduce(users.models, function(memo, next) {
         // create a tuple of [total power, num of users];
         if (next.get('power')) {
           return [memo[0] + next.get('power'), memo[1]+=1];
         }
       }, [0, 0]);
+      //calculate average
+      average = average[0]/average[1];
+      //reduce again to find the low and high mids
+      var mids = _.reduce(users.models, function(memo, next) {
+        var pow = next.get('power');
+        if (pow <= average) {
+          return {'low': [memo.low[0]+pow, memo.low[1]+=1], 'high': memo.high}
+        } else {
+          return {'low': memo.low, 'high': [memo.high[0]+pow, memo.high[1]+=1]}
+        }
+      }, {'low': [0, 0], 'high': [0, 0]});
+      //put average into an object
+      average = {'mid': average};
+      //insert low and high mid ranges with some math
+      average.low = mids.low[0]/mids.low[1];
+      average.high = mids.high[0]/mid.high[1];
+      //send it off!
       res.send(JSON.stringify(average));
     })
     .catch(function(err) {

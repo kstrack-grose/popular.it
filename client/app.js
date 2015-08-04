@@ -24,15 +24,16 @@ angular.module('popular', [])
       method: 'GET',
       url: '/users'
     }).then(function(results) {
-      var tuple = results.data;
-      var dbAvg = tuple[0]/tuple[1];
-      if (power <= dbAvg) {
-        console.log('power:', power, 'average:', dbAvg);
-        return 'Eh...you\'re almost average.';
+      var averages = results.data;
+      if (power < averages.low) {
+        return "wow, you're really unpopular. go friend more of your high school enemies."
+      } else if (power > averages.low && power < averages.mid) {
+        return "eh, you're almost average. passable, I guess.";
+      } else if (power > averages.mid && power < averages.high) {
+        return "you're a bit above average. this means you're probably a decent human being. probably.";
       } else {
-        console.log('power:', power, 'average:', dbAvg);
-        return "Wow, you're above average. So. Popular.";
-      }
+        return "OH EM GEE you are SOOOOO popular LIEK WOAAH";
+      };
     })
     .catch(function(err) {
       console.log(37, 'error in $http', err);
