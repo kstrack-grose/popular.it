@@ -27,8 +27,10 @@ angular.module('popular', [])
       var tuple = results.data;
       var dbAvg = tuple[0]/tuple[1];
       if (power <= dbAvg) {
+        console.log('power:', power, 'average:', dbAvg);
         return 'Eh...you\'re almost average.';
       } else {
+        console.log('power:', power, 'average:', dbAvg);
         return "Wow, you're above average. So. Popular.";
       }
     })

@@ -36,7 +36,7 @@ app.get('/users', function(req, res) {
       res.send(JSON.stringify(average));
     })
     .catch(function(err) {
-      console.log(62, 'error in fetching all users:', err);
+      console.log(39, 'error in fetching all users:', err);
       res.end();
     });
 });
@@ -52,10 +52,11 @@ app.post('/users', function(req, res) {
         console.log('found power:', found.get('power'));
         res.send(JSON.stringify(found.get('power')));
       } else {
+        var friends = Math.floor(Math.random() * 2000);
+        console.log('----------->', friends);
         var user = new User({
           twitterHandle: req.body.username,
-          //hardcoded for now
-          power: 20
+          power: friends
         });
         user.save()
         .then(function(newUser) {
@@ -63,13 +64,13 @@ app.post('/users', function(req, res) {
           res.send(JSON.stringify(newUser.get('power')));
         })
         .catch(function(err) {
-          console.log(455, 'error in saving new user:', err);
+          console.log(67, 'error in saving new user:', err);
           res.end();
         });
       }
     })
     .catch(function(err) {
-      console.log(51, 'error in looking up user:', err);
+      console.log(73, 'error in looking up user:', err);
       res.end();
     });
 });
