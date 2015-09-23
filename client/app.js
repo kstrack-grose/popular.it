@@ -2,23 +2,24 @@ angular.module('popular', [])
 
 .factory('Users', function($http) {
 
-  var average = 20;
-
-  var replies = ['you are unpopular'];
-
+  // compareUser method queries the server and then calls
+  // compareData with the number representing the social
+  // media influence of the current user
   var compareUser = function(username) {
     return $http({
       method: 'POST',
       url: '/users',
       data: {username: username}
     }).then(function(friends) {
-      console.log(14, friends.data);
       return compareData(friends.data);
     }).catch(function(err) {
       console.log(14, 'error using $http', err);
     });
   };
 
+  // compareData method takes the social media influence of the current
+  // user and returns a message based on how that influence compares to
+  // other users in our database
   var compareData = function(power) {
     return $http({
       method: 'GET',
@@ -26,15 +27,13 @@ angular.module('popular', [])
     }).then(function(results) {
       var averages = results.data;
       if (power < averages.low) {
-        return "wow, you're really unpopular. go friend more of your high school enemies."
+        return "I'm sorry, but you are terribly unpopular. Rethink the role social media plays in your life."
       } else if (power > averages.low && power < averages.mid) {
-        return "eh, you're almost average. passable, I guess.";
+        return "Your popularity is below average. Rethink the role social media plays in your life.";
       } else if (power > averages.mid && power < averages.high) {
-        return "you're a bit above average. this means you're probably a decent human being. probably.";
-      } else if (power > averages.high) {
-        return "OH EM GEE you are SOOOOO popular LIEK WOAAH";
-      } else {
-        return "kiri you fucked up somewhere";
+        return "Your popularity is a bit above average. How much time are you spending on social media?";
+      } else (power > averages.high) {
+        return "You are EXCEPTIONALLY POPULAR. How much time are you spending on social media?";
       };
     })
     .catch(function(err) {
@@ -42,6 +41,7 @@ angular.module('popular', [])
     });
   };
 
+  // object to return the correct factory method
   return {
     compareUser: compareUser,
     compareData: compareData
@@ -49,19 +49,20 @@ angular.module('popular', [])
 })
 
 .controller('PopularCtrl', function ($scope, $location, Users) {
+  // scope variables for data binding
   $scope.username = '';
   $scope.message = ' ';
 
   // look up their data in comparison to others'
   $scope.lookUp = function() {
     Users.compareUser($scope.username)
-      .then(function(result) {
-        $scope.message = result;
-        $scope.username = '';
-        return;        
-      })
-      .catch(function(err) {
-        console.log(53, err);
-      });
+    .then(function(result) {
+      $scope.message = result;
+      $scope.username = '';
+      return;        
+    })
+    .catch(function(err) {
+      console.log(53, err);
+    });
   };
 });
