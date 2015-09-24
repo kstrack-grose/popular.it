@@ -1,4 +1,4 @@
-/* dependencies */
+var /* dependencies */
 var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
@@ -22,7 +22,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
-var avg = 20;
 // GET //
 app.get('/users', function(req, res) {
   return Users.fetch()
@@ -67,18 +66,15 @@ app.post('/users', function(req, res) {
   return new User({twitterHandle: req.body.username}).fetch()
     .then(function(found) {
       if (found) {
-        console.log('found power:', found.get('power'));
         res.send(JSON.stringify(found.get('power')));
       } else {
         var friends = Math.floor(Math.random() * 2000);
-        console.log('----------->', friends);
         var user = new User({
           twitterHandle: req.body.username,
           power: friends
         });
         user.save()
         .then(function(newUser) {
-          console.log('new user power: ', newUser.get('power'));
           res.send(JSON.stringify(newUser.get('power')));
         })
         .catch(function(err) {
